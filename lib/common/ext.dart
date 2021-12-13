@@ -11,7 +11,7 @@ extension LogExt on String {
   }
 
   printWrapped({String? tag}) {
-    final pattern = RegExp('.{1,200}'); // 200 is the size of each chunk
+    final pattern = RegExp('.{1,100}'); // 100 is the size of each chunk
     pattern.allMatches(this).forEach((match) => match.group(0)?.log(tag: tag));
   }
 }
