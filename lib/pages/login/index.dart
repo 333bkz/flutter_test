@@ -1,4 +1,3 @@
-import 'package:f_test/common/ext.dart';
 import 'package:f_test/pages/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,27 +11,23 @@ class Login extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Nav(
-        title: '登录',
-        context: context,
-        onBack: () {
-          "from splash ${Get.arguments}".log();
-          if (Get.arguments == true) {
-            Get.offNamed(Routes.home);
-          } else {
-            Get.back();
-          }
-        },
+    return WillPopScope(
+      child: Scaffold(
+        appBar: Nav(
+          title: '登录',
+          context: context,
+          onBack: () => controller.onBack(),
+        ),
+        body: Column(
+          children: [
+            TextButton(
+              onPressed: () => Get.toNamed(Routes.register),
+              child: const Text('注册'),
+            ),
+          ],
+        ),
       ),
-      body: Column(
-        children: [
-          TextButton(
-            onPressed: () => Get.toNamed(Routes.register),
-            child: const Text('注册'),
-          ),
-        ],
-      ),
+      onWillPop: () => controller.onBack(),
     );
   }
 }

@@ -1,1 +1,3 @@
-const String TAG = "#######";
+class Constants {
+  static const String TAG = "##############";
+}

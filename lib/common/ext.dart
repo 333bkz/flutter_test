@@ -6,7 +6,7 @@ extension LogExt on String {
     if (length > 200) {
       printWrapped(tag: tag);
     } else {
-      debugPrint(tag ?? TAG + "  " + this);
+      debugPrint(tag ?? Constants.TAG + "  " + this);
     }
   }
 

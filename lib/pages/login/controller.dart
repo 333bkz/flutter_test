@@ -2,8 +2,9 @@ import 'package:f_test/common/ext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController with WidgetsBindingObserver {
+import '../config.dart';
 
+class LoginController extends GetxController with WidgetsBindingObserver {
   @override
   void onInit() {
     super.onInit();
@@ -33,5 +34,15 @@ class LoginController extends GetxController with WidgetsBindingObserver {
   void didChangeMetrics() {
     super.didChangeMetrics();
     "didChangeMetrics".log();
+  }
+
+  Future<bool> onBack() {
+    "from splash ${Get.arguments}".log();
+    if (Get.arguments == true) {
+      Get.offNamed(Routes.home);
+    } else {
+      Get.back();
+    }
+    return Future.value(false);
   }
 }
