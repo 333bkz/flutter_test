@@ -1,3 +1,4 @@
+import 'package:f_test/pages/login/controller.dart';
 import 'package:f_test/pages/splash/controller.dart';
 import 'package:f_test/pages/splash/index.dart';
 import "package:get/get.dart";
@@ -35,6 +36,10 @@ class Config {
     GetPage(
       name: Routes.login,
       page: () => const Login(),
+      transition: Transition.fadeIn,
+      binding: BindingsBuilder(() {
+        Get.put(LoginController());
+      }),
     ),
     GetPage(
       name: Routes.register,

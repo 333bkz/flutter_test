@@ -1,5 +1,6 @@
 import 'package:f_test/common/request.dart';
 import 'package:f_test/common/widget/nav.dart';
+import 'package:f_test/pages/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,7 +15,7 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final box = GetStorage();
     final goHome = TextButton(
-      onPressed: () => Get.toNamed('/login', arguments: {"a": 1}),
+      onPressed: () => Get.toNamed(Routes.login),
       child: const Text(
         '我是首页，点我跳转到login页面',
         style: TextStyle(color: Color(0xFFFF9000), fontSize: 30),

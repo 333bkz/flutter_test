@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 // title：页面标题
 // leftIcon = false，不显示返回按钮 ,leftIcon不填则为默认返回按钮，否则为leftIcon
 class Nav extends AppBar {
-  Nav({Key? key, title, leftIcon, BuildContext? context})
+  Nav({Key? key, title, leftIcon, BuildContext? context, VoidCallback? onBack})
       : super(
             key: key,
             title: Text(title),
@@ -14,7 +14,7 @@ class Nav extends AppBar {
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                        Get.back();
+                        (onBack ?? Get.back).call();
                       },
                     ));
 }
