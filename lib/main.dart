@@ -1,16 +1,21 @@
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mmkv/mmkv.dart';
 
 import './pages/config.dart';
 
 void main() async {
+  //runZoned(() async {
   WidgetsFlutterBinding.ensureInitialized();
   GestureBinding.instance?.resamplingEnabled = true;
   await GetStorage.init();
+  await MMKV.initialize(groupDir:"mmkv");
   runApp(const App());
+  //});
 }
 
 @immutable

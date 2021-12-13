@@ -38,7 +38,8 @@ dependencies:
     get: ^4.5.1
     get_storage: ^2.0.3
     flutter_easyloading: ^3.0.3
-    shared_preferences: ^2.0.10
+    #shared_preferences: ^2.0.10
+    mmkv: ">=1.2.12"
     image_picker: ^0.8.4+4
 
 dev_dependencies:
