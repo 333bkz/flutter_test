@@ -1,11 +1,15 @@
-
 import 'dart:convert' as c show jsonDecode;
+
 import 'package:dio/dio.dart';
+import 'package:f_test/common/app_cache.dart';
+import 'package:f_test/common/ext.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'constants.dart';
 
 class Request {
   static final BaseOptions _options = BaseOptions(
-    baseUrl: 'http://api.iotaichi.com',
+    baseUrl: Constants.formal_base_url,
     connectTimeout: 50000,
     receiveTimeout: 30000,
   );
@@ -13,15 +17,20 @@ class Request {
 
   ///sadas
   static Future<T> _request<T>(String path,
-      {String? method, Map? params, data}) async {
+      {String? method, Map<String, dynamic>? params, data}) async {
     try {
       EasyLoading.show();
       Response response = await _dio.request(path,
           data: data,
+          queryParameters: params,
           options: Options(
-            method: method,
-            contentType: Headers.formUrlEncodedContentType,
-          ));
+              method: method,
+              contentType: Headers.formUrlEncodedContentType,
+              headers: _buildHeaders()));
+
+      "response.statusCode: ${response.statusCode}".log();
+      "response.data: ${response.data.toString()}".log();
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         //如果请求到，则关闭弹窗动画
         EasyLoading.dismiss();
@@ -110,11 +119,18 @@ class Request {
     EasyLoading.showError(message);
   }
 
-  static Future<T> get<T>(String path, {Map? params}) {
+  static Future<T> get<T>(String path, {Map<String, dynamic>? params}) {
     return _request(path, method: 'get', params: params);
   }
 
-  static Future<T> post<T>(String path, {Map? params, data}) {
+  static Future<T> post<T>(String path, {Map<String, dynamic>? params, data}) {
     return _request(path, method: 'post', params: params, data: data);
+  }
+
+  static Map<String, String> _buildHeaders() {
+    return {
+      "Content-Type": "application/json;charset=UTF-8",
+      "token": AppCache.instance.token ?? "",
+    };
   }
 }

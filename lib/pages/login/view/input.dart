@@ -1,4 +1,3 @@
-import 'package:f_test/common/ext.dart';
 import 'package:flutter/material.dart';
 
 class LoginInput extends StatefulWidget {
@@ -6,6 +5,7 @@ class LoginInput extends StatefulWidget {
   final String? hint;
   final IconData icon;
   final bool isShowEye;
+  final int? maxLength;
 
   const LoginInput({
     Key? key,
@@ -13,6 +13,7 @@ class LoginInput extends StatefulWidget {
     required this.icon,
     this.isShowEye = false,
     this.hint,
+    this.maxLength,
   }) : super(key: key);
 
   @override
@@ -23,12 +24,6 @@ class LoginInput extends StatefulWidget {
 
 class _InputState extends State<LoginInput> {
   final GlobalKey<_EditState> editKey = GlobalKey<_EditState>();
-
-  @override
-  void initState() {
-    super.initState();
-    "_InputState initState".log();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +43,7 @@ class _InputState extends State<LoginInput> {
               controller: widget.controller,
               hint: widget.hint,
               icon: widget.icon,
+              maxLength: widget.maxLength,
             ),
           ),
           Offstage(
@@ -68,8 +64,9 @@ class _Edit extends StatefulWidget {
   final TextEditingController? controller;
   final String? hint;
   final IconData? icon;
+  final int? maxLength;
 
-  const _Edit({Key? key, this.controller, this.hint, this.icon})
+  const _Edit({Key? key, this.controller, this.hint, this.icon, this.maxLength})
       : super(key: key);
 
   @override
@@ -88,20 +85,18 @@ class _EditState extends State<_Edit> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    "_EditState initState".log();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: _isObscure,
       controller: widget.controller,
+      maxLength: widget.maxLength,
+      maxLines: 1,
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: widget.hint,
         hintStyle: const TextStyle(color: Colors.grey),
+        counterText: "", //计数hide
+        //suffix: null, //_Eye可用这个代替
       ),
     );
   }
@@ -120,12 +115,6 @@ class _Eye extends StatefulWidget {
 
 class _EyeState extends State<_Eye> {
   bool _isEncrypt = false;
-
-  @override
-  void initState() {
-    super.initState();
-    "_EyeState initState".log();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -58,14 +58,31 @@ class Login extends GetView<LoginController> {
       ),
       const SizedBox(height: 15),
       LoginInput(
-          controller: _usernameController,
-          icon: Icons.person_outline,
-          hint: "请输入用户名"),
+        controller: _usernameController,
+        icon: Icons.person_outline,
+        hint: "请输入用户名",
+        maxLength: 11,
+      ),
+      const SizedBox(height: 15),
       LoginInput(
           controller: _passwordController,
           icon: Icons.lock_outline,
           isShowEye: true,
-          hint: "请输入密码"),
+          hint: "请输入密码",
+          maxLength: 20),
+      const SizedBox(height: 25),
+      MaterialButton(
+        onPressed: () {
+          controller.login(_usernameController.text, _passwordController.text);
+        },
+        minWidth: double.infinity,
+        height: 50.0,
+        color: Colors.green,
+        child: const Text(
+          "登陆",
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+      ),
     ];
   }
 }

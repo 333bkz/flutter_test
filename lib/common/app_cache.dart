@@ -15,4 +15,16 @@ class AppCache {
 
   ///isLogin = false;
   set isLogin(bool value) => _mmkv.encodeBool("is_login", value);
+
+  String? _token;
+
+  String? get token {
+    _token ??= _mmkv.decodeString("token");
+    return _token;
+  }
+
+  set token(String? value) {
+    _token = value;
+    _mmkv.encodeString("token", value);
+  }
 }

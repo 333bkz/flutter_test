@@ -1,4 +1,6 @@
 import 'package:f_test/common/ext.dart';
+import 'package:f_test/common/path.dart';
+import 'package:f_test/common/request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,5 +46,13 @@ class LoginController extends GetxController with WidgetsBindingObserver {
       Get.back();
     }
     return Future.value(false);
+  }
+
+  void login(String account, String password) async {
+    "account: $account , password: $password".log();
+    await Request.post<Object>(
+      RequestPath.login,
+      data: {"username": account, "password": password},
+    );
   }
 }
