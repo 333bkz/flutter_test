@@ -1,0 +1,4 @@
+SingleChildScrollView
+          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()), //ios风格的上拉出来空白 AlwaysScrollableScrollPhysics：不满屏也会有效果
+          reverse: false, //滚动视图是否在阅读方向上滚动。
+Flex + List<Expanded> 比重布局

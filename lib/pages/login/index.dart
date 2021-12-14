@@ -11,39 +11,53 @@ class Login extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final winSize = MediaQuery.of(context).size;
     return WillPopScope(
-      child: Scaffold(
-        appBar: _appbar(context),
-        body: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(
-            parent: BouncingScrollPhysics(),
-          ), //ios风格的上拉出来空白
-          reverse: false, //滚动视图是否在阅读方向上滚动。
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _children(),
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics()),
+            reverse: false,
+            child: SizedBox(
+              width: winSize.width,
+              height: winSize.height,
+              child: Container(
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, top: 50, bottom: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _children(),
+                ),
+              ),
             ),
           ),
-        ),
+          Positioned(
+            top: 20,
+            child: Back(
+              onBack: () {
+                controller.onBack();
+              },
+            ),
+          ),
+        ],
       ),
       onWillPop: () => controller.onBack(),
     );
   }
 
-  Nav _appbar(BuildContext context) => Nav(
-        title: '登录',
-        context: context,
-        onBack: () => controller.onBack(),
-      );
-
   List<Widget> _children() {
     return [
+      Image.asset(
+        'assets/images/icon_splash.png',
+        height: 140,
+        width: 140,
+      ),
       TextButton(
         onPressed: () => Get.toNamed(Routes.register),
         child: const Text('注册', style: TextStyle(fontSize: 30)),
       ),
-      const Padding(padding: EdgeInsets.only(bottom: 100)),
     ];
   }
 }

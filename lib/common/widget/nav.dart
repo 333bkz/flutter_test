@@ -11,10 +11,18 @@ class Nav extends AppBar {
             leading: leftIcon == false
                 ? null
                 : leftIcon ??
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        (onBack ?? Get.back).call();
-                      },
-                    ));
+                    Back(onBack: () {
+                      (onBack ?? Get.back).call();
+                    }));
+}
+
+class Back extends IconButton {
+  Back({Key? key, VoidCallback? onBack})
+      : super(
+          key: key,
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            (onBack ?? Get.back).call();
+          },
+        );
 }
