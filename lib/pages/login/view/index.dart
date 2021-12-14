@@ -9,8 +9,8 @@ import 'input.dart';
 class Login extends GetView<LoginController> {
   Login({Key? key}) : super(key: key);
 
-  final _usernameController = TextEditingController(text: '');
-  final _passwordController = TextEditingController(text: '');
+  final _usernameController = TextEditingController(text: '18565731244');
+  final _passwordController = TextEditingController(text: '000000');
 
   @override
   Widget build(BuildContext context) {

@@ -1,57 +1,74 @@
-import 'dart:convert' as c show jsonDecode;
+import 'dart:convert' ;
 
 import 'package:dio/dio.dart';
-import 'package:f_test/common/app_cache.dart';
 import 'package:f_test/common/ext.dart';
+import 'package:f_test/common/net/bean.dart';
+import 'package:f_test/common/net/interceptor.dart' as interceptor;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get_connect/http/src/status/http_status.dart';
 
-import 'constants.dart';
+import '../constants.dart';
 
 class Request {
-  static final BaseOptions _options = BaseOptions(
-    baseUrl: Constants.formal_base_url,
-    connectTimeout: 50000,
-    receiveTimeout: 30000,
-  );
-  static final Dio _dio = Dio(_options);
+  static final Request _instance = Request._internal();
 
-  ///sadas
-  static Future<T> _request<T>(String path,
-      {String? method, Map<String, dynamic>? params, data}) async {
+  factory Request() => _instance;
+
+  Request._internal() {
+    _init();
+  }
+
+  late Dio _dio;
+
+  void _init() {
+    _dio = Dio()
+      ..options = BaseOptions(
+        baseUrl: Constants.formal_base_url,
+        connectTimeout: 50000,
+        receiveTimeout: 30000,
+      )
+      ..interceptors.add(interceptor.HeaderInterceptor())
+      ..interceptors.add(
+        LogInterceptor(
+          request: false,
+          requestHeader: false,
+          responseHeader: false,
+          requestBody: true,
+          responseBody: true,
+        ),
+      )
+      ..interceptors.add(interceptor.LoginInterceptor());
+  }
+
+  static Future<ApiResponse<T>> _request<T>(
+    String path, {
+    String? method,
+    Map<String, dynamic>? params,
+    data,
+  }) async {
+    EasyLoading.show();
     try {
-      EasyLoading.show();
-      Response response = await _dio.request(path,
-          data: data,
-          queryParameters: params,
-          options: Options(
-              method: method,
-              contentType: Headers.formUrlEncodedContentType,
-              headers: _buildHeaders()));
-
-      "response.statusCode: ${response.statusCode}".log();
-      "response.data: ${response.data.toString()}".log();
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        //如果请求到，则关闭弹窗动画
+      final Response response = await _instance._dio.request(
+        path,
+        data: data,
+        queryParameters: params,
+        options: Options(method: method),
+      );
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.created) {
         EasyLoading.dismiss();
-        var data = c.jsonDecode(response.data);
-        try {
-          if (data['code'] != 0) {
-            EasyLoading.showInfo("提示: ${data['msg']}");
-          }
-          return data;
-        } catch (e) {
-          return Future.error('解析响应数据异常');
-        }
+        return ApiResponse.fromJson(response.data);
       } else {
         EasyLoading.showInfo('HTTP错误，状态码为：${response.statusCode}');
-        _handleHttpError(response.statusCode!);
+        _handleHttpError(response.statusCode ?? 0);
         return Future.error('HTTP错误');
       }
     } on DioError catch (e) {
+      e.message.log();
       EasyLoading.showInfo(_dioError(e));
       return Future.error(_dioError(e));
     } catch (e) {
+      e.log();
       return Future.error('未知异常');
     }
   }
@@ -119,18 +136,12 @@ class Request {
     EasyLoading.showError(message);
   }
 
-  static Future<T> get<T>(String path, {Map<String, dynamic>? params}) {
+  static Future<ApiResponse<T>> get<T>(String path, {Map<String, dynamic>? params}) {
     return _request(path, method: 'get', params: params);
   }
 
-  static Future<T> post<T>(String path, {Map<String, dynamic>? params, data}) {
+  static Future<ApiResponse<T>> post<T>(String path,
+      {Map<String, dynamic>? params, data}) {
     return _request(path, method: 'post', params: params, data: data);
-  }
-
-  static Map<String, String> _buildHeaders() {
-    return {
-      "Content-Type": "application/json;charset=UTF-8",
-      "token": AppCache.instance.token ?? "",
-    };
   }
 }

@@ -1,4 +1,4 @@
-import 'package:f_test/common/request.dart';
+import 'package:f_test/common/net/request.dart';
 import 'package:f_test/common/widget/nav.dart';
 import 'package:f_test/pages/config.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ class Home extends GetView<HomeController> {
             onPressed: () async {
               // 发起请求
               final res = await Request.get('/update.json');
-              debugPrint(res);
+              debugPrint(res.text);
             },
             child: const Text('测试各种操作'),
           ),
