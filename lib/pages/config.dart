@@ -3,11 +3,11 @@ import 'package:f_test/pages/splash/controller.dart';
 import 'package:f_test/pages/splash/index.dart';
 import "package:get/get.dart";
 
-import './login/index.dart';
 import './register/index.dart';
 import '../../controller/global.dart';
 import 'home/controller.dart';
 import 'home/index.dart';
+import 'login/view/index.dart';
 
 class Routes {
   static const splash = "/splash";
@@ -35,7 +35,7 @@ class Config {
     ),
     GetPage(
       name: Routes.login,
-      page: () => const Login(),
+      page: () => Login(),
       transition: Transition.fadeIn,
       binding: BindingsBuilder(() {
         Get.put(LoginController());

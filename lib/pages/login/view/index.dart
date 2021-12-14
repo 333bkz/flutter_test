@@ -1,13 +1,16 @@
-import 'package:f_test/pages/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../common/widget/nav.dart';
-import 'controller.dart';
+import '../../../common/widget/nav.dart';
+import '../controller.dart';
+import 'input.dart';
 
 @immutable
 class Login extends GetView<LoginController> {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
+
+  final _usernameController = TextEditingController(text: '');
+  final _passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +27,11 @@ class Login extends GetView<LoginController> {
               height: winSize.height,
               child: Container(
                 padding: const EdgeInsets.only(
-                    left: 15, right: 15, top: 50, bottom: 15),
+                    left: 25, right: 25, top: 50, bottom: 15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: _children(),
+                  children: _children(winSize),
                 ),
               ),
             ),
@@ -47,17 +50,22 @@ class Login extends GetView<LoginController> {
     );
   }
 
-  List<Widget> _children() {
+  List<Widget> _children(Size size) {
     return [
       Image.asset(
-        'assets/images/icon_splash.png',
-        height: 140,
+        'assets/images/icon_login.png',
         width: 140,
       ),
-      TextButton(
-        onPressed: () => Get.toNamed(Routes.register),
-        child: const Text('注册', style: TextStyle(fontSize: 30)),
-      ),
+      const SizedBox(height: 15),
+      LoginInput(
+          controller: _usernameController,
+          icon: Icons.person_outline,
+          hint: "请输入用户名"),
+      LoginInput(
+          controller: _passwordController,
+          icon: Icons.lock_outline,
+          isShowEye: true,
+          hint: "请输入密码"),
     ];
   }
 }
