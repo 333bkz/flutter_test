@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:f_test/common/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -20,5 +22,15 @@ extension LogExt on String {
 extension ObjectLogExt on Object {
   log({String? tag}) {
     toString().log(tag: tag);
+  }
+}
+
+extension JsonExt on String {
+  T toJsonObject<T>(T Function(Map<String, dynamic>) fromJson) {
+    return fromJson.call(jsonDecode(this));
+  }
+
+  List<T> toJsonArray<T>(T Function(Map<String, dynamic>) fromJson) {
+    return (jsonDecode(this) as List).map((e) => fromJson.call(e)).toList();
   }
 }

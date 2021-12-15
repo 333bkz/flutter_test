@@ -3,18 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 part 'bean.g.dart';
 
 @JsonSerializable()
-class ApiResponse<T> {
+class ApiResponse {
+  String data;
 
-  @JsonKey(name: 'data')
-  String? _data;
-
-  int code = 200;
+  int? code;
 
   String? text;
 
-  ApiResponse();
+  ApiResponse({required this.data, this.code, this.text});
 
-  factory ApiResponse.fromJson(Map<String, dynamic> json) => _$ApiResponseFromJson(json);
+  factory ApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$ApiResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApiResponseToJson(this);
+
+  bool get isSuccess {
+    return code == 200;
+  }
 }

@@ -6,13 +6,15 @@ part of 'bean.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ApiResponse<T> _$ApiResponseFromJson<T>(Map<String, dynamic> json) =>
-    ApiResponse<T>()
-      ..code = json['code'] as int
-      ..text = json['text'] as String?;
+ApiResponse _$ApiResponseFromJson(Map<String, dynamic> json) => ApiResponse(
+      data: json['data'] as String,
+      code: json['code'] as int?,
+      text: json['text'] as String?,
+    );
 
-Map<String, dynamic> _$ApiResponseToJson<T>(ApiResponse<T> instance) =>
+Map<String, dynamic> _$ApiResponseToJson(ApiResponse instance) =>
     <String, dynamic>{
+      'data': instance.data,
       'code': instance.code,
       'text': instance.text,
     };

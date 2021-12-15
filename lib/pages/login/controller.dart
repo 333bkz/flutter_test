@@ -1,9 +1,9 @@
 import 'package:f_test/bean/login.dart';
 import 'package:f_test/common/ext.dart';
-import 'package:f_test/common/net/bean.dart';
 import 'package:f_test/common/net/path.dart';
 import 'package:f_test/common/net/request.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../config.dart';
@@ -24,10 +24,10 @@ class LoginController extends GetxController with WidgetsBindingObserver {
   }
 
   ///生命周期变化时回调
-//  resumed:应用可见并可响应用户操作
-//  inactive:用户可见，但不可响应用户操作
-//  paused:已经暂停了，用户不可见、不可操作
-//  suspending：应用被挂起，此状态IOS永远不会回调
+  ///  resumed:应用可见并可响应用户操作
+  ///  inactive:用户可见，但不可响应用户操作
+  ///  paused:已经暂停了，用户不可见、不可操作
+  ///  suspending：应用被挂起，此状态IOS永远不会回调
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -41,7 +41,6 @@ class LoginController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<bool> onBack() {
-    "from splash ${Get.arguments}".log();
     if (Get.arguments == true) {
       Get.offNamed(Routes.home);
     } else {
@@ -51,11 +50,15 @@ class LoginController extends GetxController with WidgetsBindingObserver {
   }
 
   void login(String account, String password) async {
-    "account: $account , password: $password".log();
-    final result = await Request.post<User>(
-      RequestPath.login,
+    final result = await Request.post(
+      Api.login,
       data: {"username": account, "password": password},
     );
-    result.log();
+    if (result.isSuccess) {
+      final user = result.data.toJsonObject((json) => User.fromJson(json));
+      user.log();
+      EasyLoading.showSuccess("登陆成功");
+      onBack();
+    }
   }
 }
