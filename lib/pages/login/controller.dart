@@ -1,4 +1,5 @@
-import 'package:f_test/bean/login.dart';
+import 'package:f_test/bean/home.dart';
+import 'package:f_test/bean/user.dart';
 import 'package:f_test/common/ext.dart';
 import 'package:f_test/common/net/path.dart';
 import 'package:f_test/common/net/request.dart';
@@ -59,6 +60,17 @@ class LoginController extends GetxController with WidgetsBindingObserver {
       user.log();
       EasyLoading.showSuccess("登陆成功");
       onBack();
+    }
+  }
+
+  void homeClassify() async {
+    final result = await Request.get(Api.classify);
+    if (result.isSuccess) {
+      final List<Classify> data =
+          result.data.toJsonArray((json) => Classify.fromJson(json));
+      for (var item in data) {
+        item.log();
+      }
     }
   }
 }

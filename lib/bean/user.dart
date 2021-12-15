@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'login.g.dart';
+part 'user.g.dart';
 
-/// [part 'login.g.dart'] 必须和当前文件名一致
+/// [part 'user.g.dart'] 必须和当前文件名一致
 /// fromJson ，toJson 按规则手动添加
 /// 运行命令: flutter pub run build_runner build
 @JsonSerializable()
