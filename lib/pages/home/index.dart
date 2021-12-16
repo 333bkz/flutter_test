@@ -1,9 +1,9 @@
-import 'package:f_test/common/widget/nav.dart';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import './controller.dart';
-import '../config.dart';
 
 @immutable
 class Home extends GetView<HomeController> {
@@ -14,38 +14,28 @@ class Home extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final goHome = TextButton(
-      onPressed: () => Get.toNamed(Routes.login),
-      child: const Text(
-        '我是首页，点我跳转到login页面',
-        style: TextStyle(color: Color(0xFFFF9000), fontSize: 30),
-      ),
-    );
-
-    final increment = TextButton(
-      onPressed: () => controller.increment(),
-      child: const Text('点击测试obx'),
-    );
-
-    final column = DefaultTextStyle.merge(
-        style: const TextStyle(color: Color(0xFFFF9000), fontSize: 30),
-        child: Column(children: [
-          goHome,
-          increment,
-          Obx(() => Text(controller.count.toString())),
-          const Text("-------------------------------"),
-          TextButton(
-            onPressed: () => Get.changeTheme(
-                Get.isDarkMode ? ThemeData.light() : ThemeData.dark()),
-            child: const Text('切换主题'),
-          ),
-        ]));
-    return Scaffold(
-      appBar: Nav(
-        title: "首页",
-        leftIcon: false,
-      ),
-      body: Center(child: column),
-    );
+    final winSize = MediaQueryData.fromWindow(window);
+    return Obx(() {
+      final tabs = controller.tabs;
+      return DefaultTabController(
+          length: tabs.length,
+          child: Scaffold(
+            appBar: TabBar(
+              padding: EdgeInsets.only(top: winSize.padding.top),
+              physics: const BouncingScrollPhysics(),
+              isScrollable: true,
+              tabs: [
+                for (var item in tabs)
+                  Tab(
+                    child: Text(
+                      item.groupName,
+                      style: const TextStyle(fontSize: 20, color: Colors.black),
+                    ),
+                  ),
+              ],
+            ),
+            body: const Center(child: Text("home")),
+          ));
+    });
   }
 }

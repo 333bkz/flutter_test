@@ -1,24 +1,35 @@
+import 'package:f_test/bean/home.dart';
+import 'package:f_test/common/ext.dart';
+import 'package:f_test/common/net/request.dart';
+import 'package:f_test/res/api.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-
-  final count = 0.obs;
+  final tabs = <Classify>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    getData();
+    "onInit".log();
   }
 
   @override
-  void onReady() {}
+  void onReady() {
+    "onReady".log();
+    requestTabs();
+  }
+
   @override
   void onClose() {}
 
-  void getData() {
-    // 请求页面数据
-    print("111");
+  void requestTabs() async {
+    final result = await Request.get(Api.classify);
+    if (result.isSuccess) {
+      final List<Classify> data =
+          result.data.toJsonArray((json) => Classify.fromJson(json));
+      tabs.value = data;
+    } else {
+      tabs.value = [];
+    }
   }
-
-  void increment() => count.value++;
 }

@@ -3,6 +3,7 @@ import 'package:f_test/pages/main/controller.dart';
 import 'package:f_test/pages/main/index.dart';
 import 'package:f_test/pages/splash/controller.dart';
 import 'package:f_test/pages/splash/index.dart';
+import 'package:f_test/pages/study/index.dart';
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
 
@@ -52,9 +53,16 @@ class Config {
 
   static final List<Widget> maiePages = [
     const Home(),
+    const Study(),
+    //const Mine(),
     const Mine(),
-    const Mine(),
-    const Mine()
+  ];
+
+  static final List<String> maiePageLottiePaths = [
+    "assets/json/main_tab_home.json",
+    "assets/json/main_tab_classify.json",
+    //"assets/json/main_tab_study.json",
+    "assets/json/main_tab_mine.json",
   ];
 
   // 全局controller配置

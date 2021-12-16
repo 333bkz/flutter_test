@@ -7,22 +7,15 @@ import '../config.dart';
 
 @immutable
 class Main extends GetView<MainController> {
-  final _controller = IndexController();
-
-  Main({Key? key}) : super(key: key);
+  const Main({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => Config.maiePages[_controller.index.value]),
+      body: Obx(() => Config.maiePages[controller.indexController.index.value]),
       bottomNavigationBar: BottomNav(
-        items: const [
-          "assets/json/main_tab_home.json",
-          "assets/json/main_tab_classify.json",
-          "assets/json/main_tab_study.json",
-          "assets/json/main_tab_mine.json",
-        ],
-        controller: _controller,
+        items: Config.maiePageLottiePaths,
+        controller: controller.indexController,
       ),
     );
   }

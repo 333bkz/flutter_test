@@ -14,8 +14,10 @@ void main() async {
   GestureBinding.instance?.resamplingEnabled = true;
   await MMKV.initialize(groupDir: "mmkv");
   if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
   runApp(const App());

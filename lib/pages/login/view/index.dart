@@ -74,7 +74,6 @@ class Login extends GetView<LoginController> {
       MaterialButton(
         onPressed: () {
           controller.login(_usernameController.text, _passwordController.text);
-          // controller.homeClassify();
         },
         minWidth: double.infinity,
         height: 50.0,
