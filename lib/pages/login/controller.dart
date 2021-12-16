@@ -1,7 +1,7 @@
 import 'package:f_test/bean/home.dart';
 import 'package:f_test/bean/user.dart';
 import 'package:f_test/common/ext.dart';
-import 'package:f_test/common/net/path.dart';
+import 'package:f_test/res/api.dart';
 import 'package:f_test/common/net/request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

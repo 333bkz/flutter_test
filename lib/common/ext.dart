@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:f_test/common/constants.dart';
+import 'package:f_test/res/constants.dart';
 import 'package:flutter/material.dart';
 
 extension LogExt on String {

@@ -6,7 +6,7 @@ import 'package:f_test/common/net/interceptor.dart' as interceptor;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 
-import '../constants.dart';
+import '../../res/constants.dart';
 
 class Request with Error {
   static final Request _instance = Request._internal();
