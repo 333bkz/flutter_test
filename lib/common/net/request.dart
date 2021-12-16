@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:f_test/common/ext.dart';
-import 'package:f_test/common/net/bean.dart';
+import 'package:f_test/common/net/response.dart';
 import 'package:f_test/common/net/error.dart';
 import 'package:f_test/common/net/interceptor.dart' as interceptor;
 import 'package:flutter_easyloading/flutter_easyloading.dart';

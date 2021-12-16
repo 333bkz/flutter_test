@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:mmkv/mmkv.dart';
 
 import './pages/config.dart';
@@ -13,7 +12,6 @@ import './pages/config.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GestureBinding.instance?.resamplingEnabled = true;
-  await GetStorage.init();
   await MMKV.initialize(groupDir: "mmkv");
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
@@ -35,7 +33,6 @@ class AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     final app = GetMaterialApp(
-      title: 'Flutter',
       debugShowCheckedModeBanner: true,
       initialRoute: Routes.splash,
       enableLog: true,

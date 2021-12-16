@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:f_test/common/net/bean.dart';
+import 'package:f_test/common/net/response.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 
 import '../app_cache.dart';

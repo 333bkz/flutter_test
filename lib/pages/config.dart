@@ -1,17 +1,20 @@
 import 'package:f_test/pages/login/controller.dart';
+import 'package:f_test/pages/main/controller.dart';
+import 'package:f_test/pages/main/index.dart';
 import 'package:f_test/pages/splash/controller.dart';
 import 'package:f_test/pages/splash/index.dart';
+import 'package:flutter/material.dart';
 import "package:get/get.dart";
 
 import './register/index.dart';
 import '../../controller/global.dart';
-import 'home/controller.dart';
 import 'home/index.dart';
 import 'login/view/index.dart';
+import 'mine/index.dart';
 
 class Routes {
   static const splash = "/splash";
-  static const home = "/home";
+  static const main = "/main";
   static const login = "/login";
   static const register = "/register";
 }
@@ -27,10 +30,10 @@ class Config {
       }),
     ),
     GetPage(
-      name: Routes.home,
-      page: () => const Home(),
+      name: Routes.main,
+      page: () => Main(),
       binding: BindingsBuilder(() {
-        Get.lazyPut(() => HomeController());
+        Get.lazyPut(() => MainController());
       }),
     ),
     GetPage(
@@ -45,6 +48,13 @@ class Config {
       name: Routes.register,
       page: () => const Register(),
     ),
+  ];
+
+  static final List<Widget> maiePages = [
+    const Home(),
+    const Mine(),
+    const Mine(),
+    const Mine()
   ];
 
   // 全局controller配置

@@ -1,19 +1,19 @@
-import 'package:f_test/common/net/request.dart';
 import 'package:f_test/common/widget/nav.dart';
-import 'package:f_test/pages/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import './controller.dart';
+import '../config.dart';
 
 @immutable
 class Home extends GetView<HomeController> {
+  @override
+  HomeController get controller => Get.put(HomeController());
+
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final box = GetStorage();
     final goHome = TextButton(
       onPressed: () => Get.toNamed(Routes.login),
       child: const Text(
@@ -35,25 +35,11 @@ class Home extends GetView<HomeController> {
           Obx(() => Text(controller.count.toString())),
           const Text("-------------------------------"),
           TextButton(
-            onPressed: () => box.write('name', '111111'),
-            child: const Text('存储本地数据'),
-          ),
-          TextButton(
             onPressed: () => Get.changeTheme(
                 Get.isDarkMode ? ThemeData.light() : ThemeData.dark()),
             child: const Text('切换主题'),
           ),
-          TextButton(
-            onPressed: () async {
-              // 发起请求
-              final res = await Request.get('/update.json');
-              debugPrint(res.text);
-            },
-            child: const Text('测试各种操作'),
-          ),
         ]));
-
-    debugPrint(box.read('name'));
     return Scaffold(
       appBar: Nav(
         title: "首页",

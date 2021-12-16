@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 extension LogExt on String {
   log({String? tag}) {
-    if (length > 200) {
+    if (length > 100) {
       printWrapped(tag: tag);
     } else {
       debugPrint(tag ?? Constants.TAG + "  " + this);

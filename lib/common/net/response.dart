@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'bean.g.dart';
+part 'response.g.dart';
 
 @JsonSerializable()
 class ApiResponse {

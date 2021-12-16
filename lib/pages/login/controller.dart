@@ -43,7 +43,7 @@ class LoginController extends GetxController with WidgetsBindingObserver {
 
   Future<bool> onBack() {
     if (Get.arguments == true) {
-      Get.offNamed(Routes.home);
+      Get.offNamed(Routes.main);
     } else {
       Get.back();
     }
