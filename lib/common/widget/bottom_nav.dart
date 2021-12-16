@@ -31,9 +31,11 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
       for (var _ in widget.items)
         AnimationController(
           vsync: this,
-          duration: const Duration(milliseconds: 1200),
+          duration: const Duration(milliseconds: 1000),
+          reverseDuration: const Duration(milliseconds: 1000),
         )
     ];
+    _controllers[0].value = 1;
   }
 
   @override

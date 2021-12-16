@@ -1,5 +1,4 @@
 import 'package:f_test/common/widget/bottom_nav.dart';
-import 'package:f_test/common/widget/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
